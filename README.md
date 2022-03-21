@@ -8,10 +8,14 @@ Simple dev bootstrap rails with docker-compose. You'll be up and running as quic
 
 # Clone repo and run using command:
 ```
-git clone https://github.com/andrewsheelan/docker-bootstrap-rails.git
-cd docker-bootstrap-rails
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip && 
+   unzip -d . /tmp/z.$$ &&
+   rm /tmp/z.$$
+cd docker-bootstrap-rails-master
 ./bootstrap
 ```
+
+Goto http://localhost:3000
 
 | File | Description |
 | --- | --- |
