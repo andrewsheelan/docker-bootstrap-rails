@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# clone the repo and run:
+# ./boostrap
+# This is a one time only run file
+
+# Force a build
+touch Gemfile.lock && docker-compose build
+
+# Install rails and create database
+docker-compose run --no-deps web bundle install
+docker-compose run --no-deps web rails new . --force --database=postgresql --css tailwind
+docker-compose run web bin/rails db:create
+
+# Remove this file
+rm bootstrap
+
+# Start the application
+docker-compose up

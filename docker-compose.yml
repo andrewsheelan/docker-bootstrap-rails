@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+  web:
+    build: .
+    volumes:
+      - .:/app
+      - ./tmp/bundle:/bundle
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails tailwindcss:watch && rails server -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://dev:password@db
+      BUNDLE_PATH:  /bundle
+    depends_on:
+      - db
