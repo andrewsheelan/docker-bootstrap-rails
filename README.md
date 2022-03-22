@@ -4,15 +4,23 @@ Simple dev bootstrap rails with docker-compose. You'll be up and running as quic
 # Requirements:
 - docker
 - docker-compose
-- Mac (kidding.. tested on a mac, let me know if it doesnt work for you)
 
-# Clone repo and run using command:
+# Download and run using command:
 ```
 wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip && 
    unzip -d . /tmp/z.$$ &&
    rm /tmp/z.$$
 cd docker-bootstrap-rails-master
 ./bootstrap
+```
+
+# On a windows, clone the repository and run the following from powershell from inside the folder:
+
+```
+docker-compose run --no-deps web bundle install
+docker-compose run --no-deps web rails new . --force --database=postgresql --css tailwind
+docker-compose run web bin/rails db:create
+docker-compose up
 ```
 
 Goto http://localhost:3000
