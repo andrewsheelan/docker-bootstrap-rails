@@ -12,6 +12,9 @@ docker-compose run --no-deps web bundle install
 docker-compose run --no-deps web rails new . --force --database=postgresql --css tailwind
 docker-compose run web bin/rails db:create
 
+# Install tailwind (skip if needed) More Info: https://tailwindcss.com/docs/guides/ruby-on-rails
+docker-compose run --no-deps web ./bin/rails tailwindcss:install
+
 # Remove this file
 rm bootstrap
 
