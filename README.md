@@ -31,7 +31,7 @@ wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archiv
    rm /tmp/z.$$
 
 # Rename this folder if needed
-cd docker-bootstrap-rails-master
+cd docker-bootstrap-rails-esbuild
 
 ./bootstrap
 ```
