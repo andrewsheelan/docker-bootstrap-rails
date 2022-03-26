@@ -5,11 +5,12 @@
 # Requirements
 - docker
 - docker-compose
-- Mac (kidding.. tested on a mac, let me know if it doesnt work for you)
 
 # Get started
 
 ## Unix/Mac
+
+For Importmaps/tailwind css version
 
 ```
 wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip && 
@@ -22,6 +23,18 @@ cd docker-bootstrap-rails-master
 ./bootstrap
 ```
 
+For esbuild/bootstrap css version
+
+```
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/esbuild.zip && 
+   unzip -d . /tmp/z.$$ &&
+   rm /tmp/z.$$
+
+# Rename this folder if needed
+cd docker-bootstrap-rails-master
+
+./bootstrap
+```
 
 ## windows
 
