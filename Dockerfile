@@ -1,7 +1,10 @@
 FROM ruby:3.1.1
 WORKDIR /app
 
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y build-essential postgresql-client
+
+RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
+RUN apt-get install -y nodejs yarn
 COPY . .
 
 RUN gem install bundler
