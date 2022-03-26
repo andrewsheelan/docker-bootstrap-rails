@@ -12,7 +12,7 @@
 ## Unix/Mac
 
 ```
-wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip && 
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/esbuild.zip && 
    unzip -d . /tmp/z.$$ &&
    rm /tmp/z.$$
 
