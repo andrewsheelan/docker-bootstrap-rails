@@ -1,6 +1,5 @@
 version: "3.9"
 services:
-
   db:
     image: postgres
     volumes:
@@ -28,4 +27,4 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && rails server -b '0.0.0.0' -p 3000"
     ports:
       - "3000:3000"
-    tty: true
+    # tty: true # enable for debugging with binding.pry and attach to the container using docker ps
