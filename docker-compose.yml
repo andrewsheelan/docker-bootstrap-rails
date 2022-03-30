@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+
   db:
     image: postgres
     volumes:
@@ -8,18 +9,23 @@ services:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
-  web:
+
+  yarn: &rails
     build: .
     volumes:
       - .:/app
       - ./tmp/bundle:/bundle
     command: bin/docker.dev
-    ports:
-      - "3000:3000"
     environment:
       DATABASE_URL: postgres://dev:password@db
       BUNDLE_PATH:  /bundle
     depends_on:
       - db
-    # tty: true
     stdin_open: true
+
+  web:
+    <<: *rails
+    command: bash -c "rm -f tmp/pids/server.pid && rails server -b '0.0.0.0' -p 3000"
+    ports:
+      - "3000:3000"
+    tty: true
