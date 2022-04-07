@@ -3,23 +3,44 @@ services:
   db:
     image: postgres
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - 'db:/var/lib/postgresql/data'
     environment:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
 
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: root
+  #   ports:
+  #     - "5050:80"
+
+
+  redis:
+    image: 'redis'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
   yarn: &rails
     build: .
     volumes:
       - .:/app
-      - ./tmp/bundle:/bundle
+      - 'bundle:/bundle'
     command: bin/docker.dev
     environment:
       DATABASE_URL: postgres://dev:password@db
       BUNDLE_PATH:  /bundle
+      REDIS_URL_SIDEKIQ: redis://redis:6379/1
     depends_on:
       - db
+      - redis
     stdin_open: true
 
   web:
@@ -28,3 +49,12 @@ services:
     ports:
       - "3000:3000"
     # tty: true # enable for debugging with binding.pry and attach to the container using docker ps
+
+  sidekiq:
+    <<: *rails
+    command: bundle exec sidekiq
+
+volumes:
+  redis:
+  db:
+  bundle:

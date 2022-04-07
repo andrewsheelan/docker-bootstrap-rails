@@ -10,7 +10,20 @@ touch Gemfile.lock && docker-compose build
 # Install rails and create database
 docker-compose run --no-deps web bundle install
 docker-compose run --no-deps web rails new . --force --database=postgresql --javascript esbuild --css bootstrap
-docker-compose run web bin/rails db:create
+
+# Install sidekiq & active admin
+docker-compose run web bundle add devise sidekiq activeadmin sassc-rails
+docker-compose run web bin/rails generate active_admin:install
+
+# Setup database
+docker-compose run web bin/rails db:reset
+docker-compose run web bin/rails db:migrate db:seed
+
+# Add routes
+mv routes.rb config/routes.rb
+
+# Add sidekiq rb
+mv sidekiq.rb config/initializers/sidekiq.rb
 
 # Remove this file
 rm bootstrap
