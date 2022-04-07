@@ -36,6 +36,19 @@ cd docker-bootstrap-rails-esbuild
 ./bootstrap
 ```
 
+For esbuild/bootstrap/sidekiq/activeadmin version
+
+```
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/sidekiq.zip && 
+   unzip -d . /tmp/z.$$ &&
+   rm /tmp/z.$$
+
+# Rename this folder if needed
+cd docker-bootstrap-rails-sidekiq
+
+./bootstrap
+```
+
 ## windows
 
 - clone the repository and run the following using powershell from inside the folder:
