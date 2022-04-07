@@ -49,7 +49,7 @@ cd docker-bootstrap-rails-sidekiq
 ./bootstrap
 ```
 
-## windows
+## windows (run the bootstrap file commands)
 
 - clone the repository and run the following using powershell from inside the folder:
 
