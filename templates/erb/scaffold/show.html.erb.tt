@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <p id="notice"><%%= notice %></p>
+
+  <% attributes.reject(&:password_digest?).each do |attribute| -%>
+  <% if attribute.attachment? -%>
+  <div class="form-group mb-3">
+    <p><strong><%= attribute.human_name %>:</strong></p>
+    <%%= link_to @<%= singular_table_name %>.<%= attribute.column_name %>.filename, @<%= singular_table_name %>.<%= attribute.column_name %> if @<%= singular_table_name %>.<%= attribute.column_name %>.attached? %>
+  </div>
+  <% elsif attribute.attachments? -%>
+  <div class="form-group mb-3">
+    <p><strong><%= attribute.human_name %>:</strong></p>
+    <%% @<%= singular_table_name %>.<%= attribute.column_name %>.each do |<%= attribute.singular_name %>| %>
+      <div><%%= link_to <%= attribute.singular_name %>.filename, <%= attribute.singular_name %> %></div>
+    <%% end %>
+  </div>
+  <% else -%>
+  <div class="form-group mb-3">
+    <p><strong><%= attribute.human_name %>:</strong></p>
+    <div>
+      <%%= @<%= singular_table_name %>.<%= attribute.column_name %> %>
+    </div>
+  </div>
+  <% end -%>
+
+  <% end -%>
+
+  <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn btn-primary min-width-btn" %>
+  <%%= link_to 'Back', <%= index_helper %>_path, class: "btn btn-light min-width-btn" %>
+</div>

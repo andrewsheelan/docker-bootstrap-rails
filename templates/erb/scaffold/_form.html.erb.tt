@@ -1,0 +1,43 @@
+<%%= form_with(model: <%= model_resource_name %>) do |form| %>
+  <%% if <%= singular_table_name %>.errors.any? %>
+    <div id="error_explanation">
+      <h2><%%= pluralize(<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h2>
+
+      <ul>
+        <%% <%= singular_table_name %>.errors.each do |error| %>
+          <li><%%= error.full_message %></li>
+        <%% end %>
+      </ul>
+    </div>
+  <%% end %>
+
+<% attributes.each do |attribute| -%>
+  <div class="form-group mb-3">
+<% if attribute.password_digest? -%>
+    <%%= form.label :password, class: "form-label" %>
+    <%%= form.password_field :password, class:"form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%%= form.label :password_confirmation, class: "form-label" %>
+    <%%= form.password_field :password_confirmation, class:"form-control" %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+<% elsif attribute.type == :boolean -%>
+    <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class:"form-check-input" %>
+<% elsif attribute.reference? -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+    <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :name, { prompt: true }, { class: "form-select" }  %>
+<% else -%>
+    <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class:"form-control" %>
+<% end -%>
+  </div>
+
+<% end -%>
+  <div class="form-group mb-3">
+    <%%= form.submit class: 'btn btn-primary' %>
+  </div>
+<%% end %>

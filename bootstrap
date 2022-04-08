@@ -7,20 +7,34 @@
 # Force a build
 touch Gemfile.lock && docker-compose build
 
-# Install rails and create database
+# Install bundle and create rails app
 docker-compose run --no-deps web bundle install
-docker-compose run --no-deps web rails new . --force --database=postgresql --javascript esbuild --css bootstrap
+docker-compose run --no-deps web rails new . --force --database=postgresql --javascript esbuild --css bootstrap --skip-test
 
-# Install sidekiq & active admin
-docker-compose run web bundle add devise sidekiq activeadmin sassc-rails
+# Install sidekiq, swagger & active admin
+docker-compose run web bundle add devise sidekiq activeadmin sassc-rails rswag
+docker-compose run web bundle add rspec-rails --group "development, test"
+
+# Install Active admin
 docker-compose run web bin/rails generate active_admin:install
+
 
 # Setup database
 docker-compose run web bin/rails db:reset
 docker-compose run web bin/rails db:migrate db:seed
 
+# RSwag UI
+docker-compose run web bin/rails generate rspec:install
+docker-compose run web bin/rails generate rswag:install
+docker-compose run web bundle exec rake RAILS_ENV=development rswag:specs:swaggerize
+
+
 # Add routes
 mv routes.rb config/routes.rb
+
+# Add scaffold templates
+mv templates lib/templates
+
 
 # Add sidekiq rb
 mv sidekiq.rb config/initializers/sidekiq.rb
