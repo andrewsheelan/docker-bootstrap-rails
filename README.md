@@ -63,6 +63,28 @@ docker-compose up
 
 Goto [http://localhost:3000](http://localhost:3000)
 
+
+# To start
+```
+docker-compose up
+```
+
+# To stop
+```
+docker-compose down
+```
+
+For more docker compose commands - https://docs.docker.com/compose/reference
+
+# To re-run an already bootstrapped codebase
+```
+docker-compose run web bundle install
+docker-compose run web bin/rails db:create db:migrate db:seed
+docker-compose run web yarn install
+docker-compose up
+```
+
+
 # Files
 
 | File | Description |
