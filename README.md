@@ -1,10 +1,10 @@
-- Simple dev bootstrap rails with docker-compose. You'll be up and running as quickly as 1..2...3!
+- Simple dev bootstrap rails with docker compose. You'll be up and running as quickly as 1..2...3!
 
 [Source Code](https://github.com/andrewsheelan/docker-bootstrap-rails)
 
 # Requirements
 - docker
-- docker-compose
+- docker compose
 
 # Get started
 
@@ -13,7 +13,7 @@
 For Importmaps/tailwind css version
 
 ```
-wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip && 
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/master.zip &&
    unzip -d . /tmp/z.$$ &&
    rm /tmp/z.$$
 
@@ -26,7 +26,7 @@ cd docker-bootstrap-rails-master
 For esbuild/bootstrap css version
 
 ```
-wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/esbuild.zip && 
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/esbuild.zip &&
    unzip -d . /tmp/z.$$ &&
    rm /tmp/z.$$
 
@@ -39,7 +39,7 @@ cd docker-bootstrap-rails-esbuild
 For esbuild/bootstrap/sidekiq/activeadmin version
 
 ```
-wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/sidekiq.zip && 
+wget -O /tmp/z.$$ https://github.com/andrewsheelan/docker-bootstrap-rails/archive/refs/heads/sidekiq.zip &&
    unzip -d . /tmp/z.$$ &&
    rm /tmp/z.$$
 
@@ -54,11 +54,11 @@ cd docker-bootstrap-rails-sidekiq
 - clone the repository and run the following using powershell from inside the folder:
 
 ```
-docker-compose run --no-deps web bundle install
-docker-compose run --no-deps web rails new . --force --database=postgresql --css tailwind
-docker-compose run web bin/rails db:create
-docker-compose run web bin/rails tailwindcss:install
-docker-compose up
+docker compose run --no-deps web bundle install
+docker compose run --no-deps web rails new . --force --database=postgresql --css tailwind
+docker compose run web bin/rails db:create
+docker compose run web bin/rails tailwindcss:install
+docker compose up
 ```
 
 Goto [http://localhost:3000](http://localhost:3000)
@@ -108,7 +108,7 @@ services:
 ## Dockerfile
 
 ```Dockerfile
-FROM ruby:3.1.1
+FROM ruby:3.2.2
 WORKDIR /app
 
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
@@ -126,7 +126,7 @@ CMD ["rails", "server", "-b", "0.0.0.0"]
 ```ruby
 source "https://rubygems.org"
 
-ruby "3.1.1"
+ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.2", ">= 7.0.2.3"
@@ -142,21 +142,21 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 # This is a one time only run file
 
 # Force a build
-touch Gemfile.lock && docker-compose build
+touch Gemfile.lock && docker compose build
 
 # Install rails and create database
-docker-compose run --no-deps web bundle install
-docker-compose run --no-deps web rails new . --force --database=postgresql --css tailwind
-docker-compose run web bin/rails db:create
+docker compose run --no-deps web bundle install
+docker compose run --no-deps web rails new . --force --database=postgresql --css tailwind
+docker compose run web bin/rails db:create
 
 # Install tailwind (skip if needed) More Info: https://tailwindcss.com/docs/guides/ruby-on-rails
-docker-compose run web bin/rails tailwindcss:install
+docker compose run web bin/rails tailwindcss:install
 
 # Remove this file
 rm bootstrap
 
 # Start the application
-docker-compose up
+docker compose up
 ```
 
 ## .dockerignore
