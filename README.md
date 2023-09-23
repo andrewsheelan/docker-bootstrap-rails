@@ -1,3 +1,5 @@
+If you're here, I feel Rails is at a point where you can just go here: https://github.com/rails/docked if you're starting new!
+
 - Simple dev bootstrap rails with docker compose. You'll be up and running as quickly as 1..2...3!
 
 [Source Code](https://github.com/andrewsheelan/docker-bootstrap-rails)
