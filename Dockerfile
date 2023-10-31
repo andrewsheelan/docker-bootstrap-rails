@@ -1,7 +1,12 @@
-FROM ruby:3.2.2
+FROM ruby:3.2.2-alpine
 WORKDIR /app
 
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+# Enable YJIT by default
+ENV RUBY_YJIT_ENABLE=true
+
+RUN apk add --no-cache --update \
+    build-base libffi-dev tzdata postgresql-client postgresql-dev bash git nodejs npm yarn gcompat
+
 COPY . .
 
 RUN gem install bundler
