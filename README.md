@@ -1,5 +1,3 @@
-If you're here, I feel Rails is at a point where you can just go here: https://github.com/rails/docked if you're starting new!
-
 - Simple dev bootstrap rails with docker compose. You'll be up and running as quickly as 1..2...3!
 
 [Source Code](https://github.com/andrewsheelan/docker-bootstrap-rails)
@@ -128,11 +126,11 @@ services:
     # tty: true
     stdin_open: true
 ```
-
+## Change the FROM part to fix your version, defaults to the latest version
 ## Dockerfile
 
 ```Dockerfile
-FROM ruby:3.2.2
+FROM ruby:latest
 WORKDIR /app
 
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
@@ -145,15 +143,15 @@ EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
 ```
 
+## Change the rails part to fix your version, defaults to the latest stable version
+## Dockerfile
 ## Gemfile
 
 ```ruby
 source "https://rubygems.org"
 
-ruby "3.2.2"
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.2", ">= 7.0.2.3"
+gem "rails"
 ```
 
 ## bootstrap

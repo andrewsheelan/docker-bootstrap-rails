@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine
+FROM ruby:latest
 WORKDIR /app
 
 # Enable YJIT by default
